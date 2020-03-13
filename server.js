@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const todayDate = require(__dirname+'/dateController.js');
 const port = 3000;
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -11,16 +12,7 @@ const items = [];
 const itemsStudy = [];
 
 app.get('/', (req, res)=>{
-    let today = new Date();
-    // getting the good good ( date + day of da week )
-    let options = {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long'
-    }
-    let day = today.toLocaleDateString("en-US", options);
-    //console.log(day);
-
+    let day = todayDate.getCurrentDate();
     res.render('index', {
         listTitle: day,
         newListItems: items
